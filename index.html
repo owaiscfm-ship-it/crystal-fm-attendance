@@ -252,6 +252,7 @@
 
 <script>
 const BASE_URL = 'https://script.google.com/macros/s/AKfycbzQl4bmku9MmyK-qqWoVkXednQf6Mtft_303c2eFHJFeHiH9BYdADmXyIDZLVgsQ7OW/exec';
+const APP_SECRET = 'CrystalFM-2026-Kiosk-7f2a'; // must match APP_SECRET in Code.gs
 
 const siteSelect = document.getElementById('siteSelect');
 const staffGrid = document.getElementById('staffGrid');
@@ -283,9 +284,10 @@ function showStatus(kind, msg){
 }
 
 function callGet(action){
-  return fetch(`${BASE_URL}?action=${action}`).then(r=>r.json());
+  return fetch(`${BASE_URL}?action=${action}&secret=${encodeURIComponent(APP_SECRET)}`).then(r=>r.json());
 }
 function callPost(payload){
+  payload.secret = APP_SECRET;
   return fetch(BASE_URL, {
     method:'POST',
     headers:{'Content-Type':'text/plain'},
